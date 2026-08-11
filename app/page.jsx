@@ -11,16 +11,10 @@ linkedin:<><path d="M5 8.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 0 3Z" fill="current
 return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[type]}</svg>}
 export default function Home(){
 return <main>
-<nav className="top"><div className="top-in"><Link href="/" className="logo">BESH<span>OY</span></Link><div className="nav-right"><span>ASSIUT · EGYPT</span><a href="#contact">CONTACT <Arrow/></a></div></div></nav>
-<section className="hero"><div className="hero-in"><div className="hero-tag">BESHOY NASHAAT — VIDEO EDITOR</div>
-<h1 className="name-hero">BESHOY<br/><span>NASHAAT</span></h1>
-<div className="hero-role">VIDEO EDITOR · MOTION DESIGN · VISUAL STORYTELLING</div><div className="hero-bottom"><p>I edit stories for brands, podcasts and people — with rhythm, intention and a cinematic eye.</p><a href="#work" className="circle-link">SCROLL<br/><b>↓</b></a></div></div></section>
-<section id="work" className="work"><div className="work-head"><div><span className="eyebrow">01 — SELECTED WORK</span><h2>Projects</h2></div><div className="work-note">05 CASE STUDIES<br/>VIDEO + SOCIAL</div></div>
-<div className="project-list">{projects.map((p,i)=><Link className="project-row" href={`/projects/${p.slug}`} key={p.slug}>
-<div className="row-no">{p.number}</div><div className="row-main"><div className="row-thumb">
-  <img src={p.cover} alt={`${p.title} project cover`} />
-  <span className="thumb-label">PROJECT COVER</span>
-</div><div><h3>{p.title}</h3><p>{p.description}</p></div></div><div className="row-arrow"><Arrow/></div>
+<nav className="top"><div className="top-in"><Link href="/" className="logo">BESHOY <span>NASHAAT</span></Link><div className="nav-right"><span>VIDEO EDITOR · ASSIUT, EGYPT</span><a href="#contact">CONTACT <Arrow/></a></div></div></nav>
+<section className="work-hero"><div className="work-hero-in"><div><span className="eyebrow lime">SELECTED WORK</span><h1>Projects I’m<br/><em>Proud Of.</em></h1></div><div className="hero-copy"><p>Turning ideas into powerful visuals.</p><div>Editing <b>•</b> Motion <b>•</b> Storytelling</div></div><a href="#work" className="all-work">VIEW ALL WORK <Arrow/></a></div></section>
+<section id="work" className="work work-target"><div className="project-list">{projects.map((p)=><Link className="project-row" href={`/projects/${p.slug}`} key={p.slug}>
+<div className="row-no">{p.number}</div><div className="row-main"><div className="row-thumb"><img src={p.cover} alt={`${p.title} project cover`} /></div><div className="row-copy"><h3>{p.title}</h3><p>{p.description}</p><div className="tags">{p.description.split(' · ').map((tag,i)=><span key={i}>{tag}</span>)}</div></div></div><div className="row-arrow"><Arrow/></div>
 </Link>)}</div></section>
 <section className="statement"><div className="statement-in"><span className="eyebrow">THE APPROACH</span><h2>Good editing isn't<br/><i>just cutting.</i><br/>It's <strong>feeling.</strong></h2></div></section>
 <section id="contact" className="contact"><div className="contact-in"><div><span className="eyebrow">02 — CONTACT</span><h2>Let's make<br/><i>something.</i></h2></div><div className="contact-grid">
@@ -30,5 +24,5 @@ return <main>
 <a href="https://www.facebook.com/beshoo4jesus" target="_blank"><SocialIcon type="facebook"/><b>Facebook</b><span>/beshoo4jesus</span><Arrow/></a>
 <a href="https://www.linkedin.com/in/beshoy-nashaat-19640620b/" target="_blank"><SocialIcon type="linkedin"/><b>LinkedIn</b><span>Beshoy Nashaat</span><Arrow/></a>
 </div></div></section>
-<footer><span>BESH<span>OY</span> NASHAAT</span><span>© 2026</span><span>VIDEO EDITOR · MOTION DESIGN</span></footer>
+<footer><span className="footer-name">BESHOY NASHAAT</span><span>© 2026 BESHOY NASHAAT. All rights reserved.</span><span>VIDEO EDITOR · MOTION DESIGN</span></footer>
 </main>}
