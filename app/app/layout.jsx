@@ -1,0 +1,1 @@
+import "./globals.css";export const metadata={title:"Beshoy Nashaat — Video Editor",description:"Selected video editing and motion design work by Beshoy Nashaat."};export default function RootLayout({children}){return <>{children}</>}
