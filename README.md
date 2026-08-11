@@ -9,3 +9,7 @@ No Behance scraping. No `cheerio`. Media IDs are stored locally in `lib/projects
 Note: video titles are currently generated from project/link metadata because the
 provided URLs do not contain the actual YouTube title. The YouTube thumbnail is
 loaded from the video ID.
+
+
+## Behance project covers
+Project covers are requested server-side from each supplied Behance project URL via `/api/behance-image`. If Behance does not expose an OpenGraph cover, the UI falls back to the first YouTube thumbnail.

@@ -12,15 +12,20 @@ return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[type]}</svg>}
 export default function Home(){
 return <main>
 <nav className="top"><div className="top-in"><Link href="/" className="logo">BESH<span>OY</span></Link><div className="nav-right"><span>ASSIUT · EGYPT</span><a href="#contact">CONTACT <Arrow/></a></div></div></nav>
-<section className="hero"><div className="hero-in"><div className="hero-tag">VIDEO EDITOR / CREATIVE</div><h1>Stories<br/><span>in motion.</span></h1><div className="hero-bottom"><p>I edit stories for brands, podcasts and people — with rhythm, intention and a cinematic eye.</p><a href="#work" className="circle-link">SCROLL<br/><b>↓</b></a></div></div></section>
+<section className="hero"><div className="hero-in"><div className="hero-tag">BESHОY NASHAAT — VIDEO EDITOR</div>
+<h1 className="name-hero">BESHОY<br/><span>NASHAAT</span></h1>
+<div className="hero-role">VIDEO EDITOR · MOTION DESIGN · VISUAL STORYTELLING</div><div className="hero-bottom"><p>I edit stories for brands, podcasts and people — with rhythm, intention and a cinematic eye.</p><a href="#work" className="circle-link">SCROLL<br/><b>↓</b></a></div></div></section>
 <section id="work" className="work"><div className="work-head"><div><span className="eyebrow">01 — SELECTED WORK</span><h2>Projects</h2></div><div className="work-note">05 CASE STUDIES<br/>VIDEO + SOCIAL</div></div>
 <div className="project-list">{projects.map((p,i)=><Link className="project-row" href={`/projects/${p.slug}`} key={p.slug}>
-<div className="row-no">{p.number}</div><div className="row-main"><div className="row-thumb">{p.youtube[0]&&<img src={`https://i.ytimg.com/vi/${p.youtube[0].id}/hqdefault.jpg`} alt="" />}</div><div><h3>{p.title}</h3><p>{p.description}</p></div></div><div className="row-arrow"><Arrow/></div>
+<div className="row-no">{p.number}</div><div className="row-main"><div className="row-thumb">
+  <img src={`/api/behance-image?url=${encodeURIComponent(p.behance)}`} alt="" onError={(e)=>{if(p.youtube[0]){e.currentTarget.src=`https://i.ytimg.com/vi/${p.youtube[0].id}/hqdefault.jpg`}}} />
+  <span className="thumb-label">BEHANCE / SELECTED FRAME</span>
+</div><div><h3>{p.title}</h3><p>{p.description}</p></div></div><div className="row-arrow"><Arrow/></div>
 </Link>)}</div></section>
 <section className="statement"><div className="statement-in"><span className="eyebrow">THE APPROACH</span><h2>Good editing isn't<br/><i>just cutting.</i><br/>It's <strong>feeling.</strong></h2></div></section>
 <section id="contact" className="contact"><div className="contact-in"><div><span className="eyebrow">02 — CONTACT</span><h2>Let's make<br/><i>something.</i></h2></div><div className="contact-grid">
-<a href="tel:+20104382124"><SocialIcon type="phone"/><b>Phone</b><span>+20 10 4382 124</span><Arrow/></a>
-<a href="https://wa.me/20104382124" target="_blank"><SocialIcon type="whatsapp"/><b>WhatsApp</b><span>Message me</span><Arrow/></a>
+<a href="tel:+201014382124"><SocialIcon type="phone"/><b>Phone</b><span>+20 10 1438 2124</span><Arrow/></a>
+<a href="https://wa.me/201014382124" target="_blank"><SocialIcon type="whatsapp"/><b>WhatsApp</b><span>Message me</span><Arrow/></a>
 <a href="https://www.instagram.com/beshoonashaat10/" target="_blank"><SocialIcon type="instagram"/><b>Instagram</b><span>@beshoonashaat10</span><Arrow/></a>
 <a href="https://www.facebook.com/beshoo4jesus" target="_blank"><SocialIcon type="facebook"/><b>Facebook</b><span>/beshoo4jesus</span><Arrow/></a>
 <a href="https://www.linkedin.com/in/beshoy-nashaat-19640620b/" target="_blank"><SocialIcon type="linkedin"/><b>LinkedIn</b><span>Beshoy Nashaat</span><Arrow/></a>
