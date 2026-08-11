@@ -2,34 +2,89 @@ import Link from "next/link";
 import {projects} from "../lib/projects";
 
 function Arrow(){return <span className="arrow">↗</span>}
-function SocialIcon({type}){const paths={
-phone:<><path d="M7 3.5c-.5 0-1 .3-1.2.8l-1 2.3c-.2.5-.1 1 .3 1.4l1.5 1.5c1.3 2.6 3.4 4.7 6 6l1.5 1.5c.4.4.9.5 1.4.3l2.3-1c.5-.2.8-.7.8-1.2v-1.8c0-.6-.4-1.1-1-1.2l-2.5-.4c-.5-.1-1 .1-1.3.5l-.7.9a11.2 11.2 0 0 1-3.1-3.1l.9-.7c.4-.3.6-.8.5-1.3L11 5.5c-.1-.6-.6-1-1.2-1H8Z"/></>,
-whatsapp:<><path d="M18 9.6a7 7 0 0 1-10.4 6.1L4 17l1.4-3.5A7 7 0 1 1 18 9.6Z"/><path d="M8 7.5c.2-.3.4-.3.6-.3h.5c.2 0 .3.1.4.4l.7 1.6c.1.2.1.4-.1.6l-.5.6c.6 1 1.3 1.7 2.3 2.2l.6-.5c.2-.2.4-.2.6-.1l1.5.7c.3.1.4.3.3.6-.2.7-.8 1.2-1.5 1.2-1.2 0-2.9-.9-4.1-2.1C8.1 11.3 7.2 9.6 7.2 8.4c0-.3.3-.7.8-.9Z"/></>,
-instagram:<><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.3" cy="6.8" r=".7" fill="currentColor" stroke="none"/></>,
-facebook:<><path d="M14 20v-7h2.5l.4-3H14V8.1c0-.9.3-1.5 1.6-1.5H17V4.1c-.6-.1-1.3-.1-2-.1-2.2 0-3.7 1.3-3.7 3.8V10H9v3h2.3v7H14Z" fill="currentColor" stroke="none"/></>,
-linkedin:<><path d="M5 8.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 0 3Z" fill="currentColor" stroke="none"/><path d="M4 10h2v10H4zM8 10h2v1.5c.7-1 1.7-1.8 3.4-1.8 3.1 0 3.6 2 3.6 4.6V20h-2v-5c0-1.2 0-3-1.9-3s-2.1 1.4-2.1 2.9V20H8V10Z" fill="currentColor" stroke="none"/></>},
-email:<><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></>,
-youtube:<><path d="M21 8.2a2.5 2.5 0 0 0-1.8-1.8C17.6 6 12 6 12 6s-5.6 0-7.2.4A2.5 2.5 0 0 0 3 8.2 26 26 0 0 0 2.7 12 26 26 0 0 0 3 15.8a2.5 2.5 0 0 0 1.8 1.8C6.4 18 12 18 12 18s5.6 0 7.2-.4a2.5 2.5 0 0 0 1.8-1.8 26 26 0 0 0 .3-3.8 26 26 0 0 0-.3-3.8Z"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none"/></>,
-behance:<><path d="M4 6h5.2c2.5 0 4 1.2 4 3.1 0 1.2-.7 2.2-1.8 2.7 1.6.4 2.6 1.5 2.6 3.1 0 2.3-1.8 3.7-4.6 3.7H4V6Zm2.2 2v3h2.6c1.3 0 2-.5 2-1.5s-.7-1.5-2-1.5H6.2Zm0 5v3.5h2.9c1.4 0 2.2-.6 2.2-1.8s-.8-1.7-2.2-1.7H6.2Z" fill="currentColor" stroke="none"/><path d="M16 9h3.8v1.2H16zM18 11c2.5 0 4 1.6 4 4v.6h-6c.1 1.4.8 2.2 2.1 2.2.9 0 1.5-.3 1.9-1l1.8.7c-.7 1.4-2 2.2-3.9 2.2-2.7 0-4.3-1.7-4.3-4.4S15.2 11 18 11Zm1.9 3c-.2-1.1-.8-1.6-1.9-1.6-1 0-1.7.6-1.9 1.6h3.8Z" fill="currentColor" stroke="none"/></>
-};
-return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[type]}</svg>}
-export default function Home(){
-return <main>
-<nav className="top"><div className="top-in"><Link href="/" className="logo">BESHOY <span>NASHAAT</span></Link><div className="nav-right"><span>VIDEO EDITOR · ASSIUT, EGYPT</span><a href="#contact">CONTACT <Arrow/></a></div></div></nav>
-<section className="intro-hero"><div className="intro-hero-in"><span className="eyebrow lime">BESHOY NASHAAT — VIDEO EDITOR</span><h1>BESHOY<br/><em>NASHAAT</em></h1><p>A creative <strong>Video Editor</strong> and a <strong>Data Science</strong> undergraduate. I specialize in crafting engaging visual stories, from long-form content to high-retention short reels. By combining creative storytelling with an analytical mindset, I edit videos that don't just look great—they perform.</p><div className="intro-meta"><span>VIDEO EDITOR</span><span>DATA SCIENCE</span><span>ASSIUT, EGYPT</span></div></div></section><section className="work-hero"><div className="work-hero-in"><div><span className="eyebrow lime">SELECTED WORK</span><h1>Projects I’m<br/><em>Proud Of.</em></h1></div><div className="hero-copy"><p>Turning ideas into powerful visuals.</p><div>Editing <b>•</b> Motion <b>•</b> Storytelling</div></div><a href="#work" className="all-work">VIEW ALL WORK <Arrow/></a></div></section>
-<section id="work" className="work work-target"><div className="project-list">{projects.map((p)=><Link className="project-row" href={`/projects/${p.slug}`} key={p.slug}>
-<div className="row-no">{p.number}</div><div className="row-main"><div className="row-thumb"><img src={p.cover} alt={`${p.title} project cover`} /></div><div className="row-copy"><h3>{p.title}</h3><p>{p.description}</p><div className="tags">{p.description.split(' · ').map((tag,i)=><span key={i}>{tag}</span>)}</div></div></div><div className="row-arrow"><Arrow/></div>
-</Link>)}</div></section>
-<section className="statement"><div className="statement-in"><span className="eyebrow">THE APPROACH</span><h2>Good editing isn't<br/><i>just cutting.</i><br/>It's <strong>feeling.</strong></h2></div></section>
-<section id="contact" className="contact"><div className="contact-in"><div><span className="eyebrow">02 — CONTACT</span><h2>Let's make<br/><i>something.</i></h2></div><div className="contact-grid">
-<a href="tel:+201014382124"><SocialIcon type="phone"/><b>Phone</b><span>+20 10 1438 2124</span><Arrow/></a>
-<a href="https://www.facebook.com/beshoo4jesus" target="_blank" rel="noreferrer"><SocialIcon type="facebook"/><b>Facebook</b><span>/beshoo4jesus</span><Arrow/></a>
-<a href="https://www.instagram.com/beshoonashaat10/" target="_blank" rel="noreferrer"><SocialIcon type="instagram"/><b>Instagram</b><span>@beshoonashaat10</span><Arrow/></a>
-<a href="https://wa.me/201014382124" target="_blank" rel="noreferrer"><SocialIcon type="whatsapp"/><b>WhatsApp</b><span>Message me</span><Arrow/></a>
-<a href="https://www.linkedin.com/in/beshoy-nashaat-19640620b/" target="_blank" rel="noreferrer"><SocialIcon type="linkedin"/><b>LinkedIn</b><span>Beshoy Nashaat</span><Arrow/></a>
-<a href="mailto:beshoo.nashaat10@gmail.com"><SocialIcon type="email"/><b>Email</b><span>beshoo.nashaat10@gmail.com</span><Arrow/></a>
-<a href="https://www.youtube.com/@beshoonashaat10" target="_blank" rel="noreferrer"><SocialIcon type="youtube"/><b>YouTube</b><span>@beshoonashaat10</span><Arrow/></a>
-<a href="https://www.behance.net/beshoonashaat10" target="_blank" rel="noreferrer"><SocialIcon type="behance"/><b>Behance</b><span>beshoonashaat10</span><Arrow/></a>
-</div></div></section>
-<footer><span className="footer-name">BESHOY NASHAAT</span><span>© 2026 BESHOY NASHAAT. All rights reserved.</span><span>VIDEO EDITOR · MOTION DESIGN</span></footer>
-</main>}
+function SocialIcon({ type }) {
+  const common = {
+    width: 22,
+    height: 22,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 1.8,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+
+  if (type === "phone") {
+    return (
+      <svg {...common}>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z" />
+      </svg>
+    );
+  }
+
+  if (type === "facebook") {
+    return (
+      <svg {...common} fill="currentColor" stroke="none">
+        <path d="M14 20v-7h2.5l.4-3H14V8.1c0-.9.3-1.5 1.6-1.5H17V4.1c-.6-.1-1.3-.1-2-.1-2.2 0-3.7 1.3-3.7 3.8V10H9v3h2.3v7H14Z" />
+      </svg>
+    );
+  }
+
+  if (type === "instagram") {
+    return (
+      <svg {...common}>
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (type === "whatsapp") {
+    return (
+      <svg {...common}>
+        <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L4 20l1.1-4.1A8.5 8.5 0 1 1 21 11.5Z" />
+        <path d="M8.5 8.2c.2-.4.4-.5.7-.5h.6c.2 0 .4.2.5.5l.7 1.7c.1.3.1.5-.1.7l-.6.6c.7 1.2 1.6 2.1 2.8 2.7l.6-.6c.2-.2.5-.2.7-.1l1.6.8c.3.1.4.4.3.7-.2.8-.9 1.4-1.7 1.4-1.5 0-3.5-1-4.9-2.4-1.4-1.4-2.4-3.4-2.4-4.9 0-.2.1-.4.2-.6Z" />
+      </svg>
+    );
+  }
+
+  if (type === "linkedin") {
+    return (
+      <svg {...common} fill="currentColor" stroke="none">
+        <path d="M6.5 8.5A1.5 1.5 0 1 0 6.5 5.5a1.5 1.5 0 0 0 0 3Z" />
+        <path d="M5 10h3v10H5zM10 10h3v1.4c.7-1 1.8-1.7 3.5-1.7 3 0 3.5 2 3.5 4.5V20h-3v-5.1c0-1.2 0-2.8-1.8-2.8s-2.2 1.4-2.2 2.8V20h-3V10Z" />
+      </svg>
+    );
+  }
+
+  if (type === "email") {
+    return (
+      <svg {...common}>
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="m4 7 8 6 8-6" />
+      </svg>
+    );
+  }
+
+  if (type === "youtube") {
+    return (
+      <svg {...common}>
+        <rect x="2.5" y="5" width="19" height="14" rx="4" />
+        <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
+      </svg>
+    );
+  }
+
+  if (type === "behance") {
+    return (
+      <svg {...common} fill="currentColor" stroke="none">
+        <path d="M4 6h5.2c2.7 0 4.1 1.2 4.1 3.2 0 1.2-.6 2.2-1.8 2.7 1.6.4 2.6 1.5 2.6 3.2 0 2.3-1.8 3.7-4.7 3.7H4V6Zm2.3 2v3h2.5c1.4 0 2-.5 2-1.5s-.6-1.5-2-1.5H6.3Zm0 5v3.6h2.8c1.5 0 2.3-.6 2.3-1.8 0-1.2-.8-1.8-2.3-1.8H6.3Z" />
+        <path d="M16 9h4v1.2h-4V9Zm2 2c2.5 0 4 1.6 4 4v.6h-6c.1 1.4.8 2.2 2.1 2.2.9 0 1.5-.3 1.9-1l1.8.7c-.7 1.4-2 2.2-3.9 2.2-2.7 0-4.3-1.7-4.3-4.4S15.2 11 18 11Zm1.9 3c-.2-1.1-.8-1.6-1.9-1.6-1 0-1.7.6-1.9 1.6h3.8Z" />
+      </svg>
+    );
+  }
+
+  return null;
+}
