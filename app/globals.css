@@ -30,3 +30,9 @@ footer{border-top:1px solid var(--line);min-height:70px;padding:0 30px;display:f
  .behance-cover img{min-height:210px}
  .behance-cover>div{left:10px;bottom:10px;gap:5px;flex-wrap:wrap}
 }
+
+/* Square project images */
+.row-thumb{aspect-ratio:1/1;height:auto}
+.row-thumb img{width:100%;height:100%;object-fit:cover}
+.behance-cover{aspect-ratio:1/1;max-width:720px}
+.behance-cover img{width:100%;height:100%;max-height:none;object-fit:cover}

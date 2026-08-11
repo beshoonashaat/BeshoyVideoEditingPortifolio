@@ -30,5 +30,5 @@ return <main>
 <a href="https://www.facebook.com/beshoo4jesus" target="_blank"><SocialIcon type="facebook"/><b>Facebook</b><span>/beshoo4jesus</span><Arrow/></a>
 <a href="https://www.linkedin.com/in/beshoy-nashaat-19640620b/" target="_blank"><SocialIcon type="linkedin"/><b>LinkedIn</b><span>Beshoy Nashaat</span><Arrow/></a>
 </div></div></section>
-<footer><span>BESH<span>OY</span> NASH AAT</span><span>© 2026</span><span>VIDEO EDITOR · MOTION DESIGN</span></footer>
+<footer><span>BESH<span>OY</span> NASHAAT</span><span>© 2026</span><span>VIDEO EDITOR · MOTION DESIGN</span></footer>
 </main>}
