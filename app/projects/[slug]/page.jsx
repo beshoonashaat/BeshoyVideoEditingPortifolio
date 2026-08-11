@@ -1,14 +1,18 @@
 import Link from "next/link";
 import {notFound} from "next/navigation";
 import {projects,getProject} from "../../../lib/projects";
+import BehanceImage from "../../components/BehanceImage";
 export const dynamic="force-static";
 export function generateStaticParams(){return projects.map(p=>({slug:p.slug}))}
 function YT({v,i}){return <article className="vcard"><div className="vframe"><iframe src={`https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1`} title={v.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/></div><div className="vinfo"><small>{String(i+1).padStart(2,"0")} / YOUTUBE</small><h3>{v.title}</h3></div></article>}
 function IG({v,i}){return <article className="vcard igcard"><div className="igframe"><iframe src={`https://www.instagram.com/p/${v.id}/embed`} title={v.title} scrolling="no" allowTransparency allowFullScreen/></div><div className="vinfo"><small>{String(i+1).padStart(2,"0")} / INSTAGRAM</small><h3>{v.title}</h3></div></article>}
 export default async function Page({params}){const {slug}=await params;const p=getProject(slug);if(!p)notFound();return <main><nav className="top"><div className="top-in"><Link href="/" className="logo">BESH<span>OY</span></Link><Link href="/#contact">CONTACT ↗</Link></div></nav><header className="phead"><Link href="/" className="back">← BACK TO WORK</Link><div className="pnum">{p.number}</div><span className="eyebrow">CASE STUDY</span><h1>{p.title}</h1><p>{p.description}</p></header>
 <section className="behance-cover">
-  <img src={`/api/behance-image?url=${encodeURIComponent(p.behance)}`} alt={`${p.title} — Behance cover`}
-       onError={(e)=>{if(p.youtube[0]) e.currentTarget.src=`https://i.ytimg.com/vi/${p.youtube[0].id}/maxresdefault.jpg`}} />
+  <BehanceImage
+  behance={p.behance}
+  fallback={p.youtube[0] ? `https://i.ytimg.com/vi/${p.youtube[0].id}/maxresdefault.jpg` : undefined}
+  alt={`${p.title} — Behance cover`}
+/>
   <div><span>PROJECT COVER</span><small>SOURCED FROM BEHANCE</small></div>
 </section>
 <section className="pmedia">{p.youtube.length>0&&<><div className="media-head"><span>YOUTUBE</span><b>{p.youtube.length} VIDEOS</b></div><div className="vgrid">{p.youtube.map((v,i)=><YT v={v} i={i} key={v.id}/>)}</div></>}{p.instagram.length>0&&<><div className="media-head second"><span>INSTAGRAM</span><b>{p.instagram.length} POSTS</b></div><div className="vgrid iggrid">{p.instagram.map((v,i)=><IG v={v} i={i} key={v.id}/>)}</div></>}</section><footer><Link href="/">← ALL PROJECTS</Link><span>© 2026 BESH OY</span></footer></main>}
