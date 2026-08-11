@@ -12,4 +12,4 @@ loaded from the video ID.
 
 
 ## Behance project covers
-Project covers are requested server-side from each supplied Behance project URL via `/api/behance-image`. If Behance does not expose an OpenGraph cover, the UI falls back to the first YouTube thumbnail.
+Project covers are stored locally in `public/project-covers`, supplied by the portfolio owner. The site no longer depends on Behance for project images.

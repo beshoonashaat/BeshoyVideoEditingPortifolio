@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {projects} from "../lib/projects";
-import BehanceImage from "./components/BehanceImage";
 
 function Arrow(){return <span className="arrow">↗</span>}
 function SocialIcon({type}){const paths={
@@ -19,12 +18,8 @@ return <main>
 <section id="work" className="work"><div className="work-head"><div><span className="eyebrow">01 — SELECTED WORK</span><h2>Projects</h2></div><div className="work-note">05 CASE STUDIES<br/>VIDEO + SOCIAL</div></div>
 <div className="project-list">{projects.map((p,i)=><Link className="project-row" href={`/projects/${p.slug}`} key={p.slug}>
 <div className="row-no">{p.number}</div><div className="row-main"><div className="row-thumb">
-  <BehanceImage
-  behance={p.behance}
-  fallback={p.youtube[0] ? `https://i.ytimg.com/vi/${p.youtube[0].id}/hqdefault.jpg` : undefined}
-  alt={`${p.title} project cover`}
-/>
-  <span className="thumb-label">BEHANCE / SELECTED FRAME</span>
+  <img src={p.cover} alt={`${p.title} project cover`} />
+  <span className="thumb-label">PROJECT COVER</span>
 </div><div><h3>{p.title}</h3><p>{p.description}</p></div></div><div className="row-arrow"><Arrow/></div>
 </Link>)}</div></section>
 <section className="statement"><div className="statement-in"><span className="eyebrow">THE APPROACH</span><h2>Good editing isn't<br/><i>just cutting.</i><br/>It's <strong>feeling.</strong></h2></div></section>
