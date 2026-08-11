@@ -11,6 +11,7 @@ linkedin:<><path d="M5 8.5A1.5 1.5 0 1 0 5 5.5a1.5 1.5 0 0 0 0 3Z" fill="current
 email:<><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></>,
 youtube:<><path d="M21 8.2a2.5 2.5 0 0 0-1.8-1.8C17.6 6 12 6 12 6s-5.6 0-7.2.4A2.5 2.5 0 0 0 3 8.2 26 26 0 0 0 2.7 12 26 26 0 0 0 3 15.8a2.5 2.5 0 0 0 1.8 1.8C6.4 18 12 18 12 18s5.6 0 7.2-.4a2.5 2.5 0 0 0 1.8-1.8 26 26 0 0 0 .3-3.8 26 26 0 0 0-.3-3.8Z"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none"/></>,
 behance:<><path d="M4 6h5.2c2.5 0 4 1.2 4 3.1 0 1.2-.7 2.2-1.8 2.7 1.6.4 2.6 1.5 2.6 3.1 0 2.3-1.8 3.7-4.6 3.7H4V6Zm2.2 2v3h2.6c1.3 0 2-.5 2-1.5s-.7-1.5-2-1.5H6.2Zm0 5v3.5h2.9c1.4 0 2.2-.6 2.2-1.8s-.8-1.7-2.2-1.7H6.2Z" fill="currentColor" stroke="none"/><path d="M16 9h3.8v1.2H16zM18 11c2.5 0 4 1.6 4 4v.6h-6c.1 1.4.8 2.2 2.1 2.2.9 0 1.5-.3 1.9-1l1.8.7c-.7 1.4-2 2.2-3.9 2.2-2.7 0-4.3-1.7-4.3-4.4S15.2 11 18 11Zm1.9 3c-.2-1.1-.8-1.6-1.9-1.6-1 0-1.7.6-1.9 1.6h3.8Z" fill="currentColor" stroke="none"/></>
+};
 return <svg viewBox="0 0 24 24" aria-hidden="true">{paths[type]}</svg>}
 export default function Home(){
 return <main>
