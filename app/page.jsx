@@ -1,15 +1,16 @@
 import Link from "next/link";
-import {projects} from "../lib/projects";
+import { projects } from "../lib/projects";
 
-function Arrow(){return <span className="arrow">↗</span>}
+function Arrow() {
+  return <span className="arrow">↗</span>;
+}
+
 function SocialIcon({ type }) {
   const common = {
-    width: 22,
-    height: 22,
     viewBox: "0 0 24 24",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: 1.8,
+    strokeWidth: "1.6",
     strokeLinecap: "round",
     strokeLinejoin: "round",
     "aria-hidden": true,
@@ -18,7 +19,7 @@ function SocialIcon({ type }) {
   if (type === "phone") {
     return (
       <svg {...common}>
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92z" />
+        <path d="M7.2 3.8h2.2c.6 0 1.1.4 1.2 1l.5 2.4c.1.5-.1.9-.5 1.2l-1.1.8a11.5 11.5 0 0 0 5.3 5.3l.8-1.1c.3-.4.8-.6 1.2-.5l2.4.5c.6.1 1 .6 1 1.2v2.2c0 .7-.5 1.2-1.2 1.2C11.9 18 6 12.1 6 5c0-.7.5-1.2 1.2-1.2Z" />
       </svg>
     );
   }
@@ -26,7 +27,7 @@ function SocialIcon({ type }) {
   if (type === "facebook") {
     return (
       <svg {...common} fill="currentColor" stroke="none">
-        <path d="M14 20v-7h2.5l.4-3H14V8.1c0-.9.3-1.5 1.6-1.5H17V4.1c-.6-.1-1.3-.1-2-.1-2.2 0-3.7 1.3-3.7 3.8V10H9v3h2.3v7H14Z" />
+        <path d="M14 20v-7h2.4l.4-3H14V8.1c0-.9.3-1.5 1.6-1.5H17V4.1c-.6-.1-1.3-.1-2-.1-2.2 0-3.7 1.3-3.7 3.8V10H9v3h2.3v7H14Z" />
       </svg>
     );
   }
@@ -34,9 +35,9 @@ function SocialIcon({ type }) {
   if (type === "instagram") {
     return (
       <svg {...common}>
-        <rect x="3" y="3" width="18" height="18" rx="5" />
-        <circle cx="12" cy="12" r="4" />
-        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        <rect x="4" y="4" width="16" height="16" rx="4" />
+        <circle cx="12" cy="12" r="3.5" />
+        <circle cx="17.2" cy="6.8" r=".7" fill="currentColor" stroke="none" />
       </svg>
     );
   }
@@ -44,8 +45,8 @@ function SocialIcon({ type }) {
   if (type === "whatsapp") {
     return (
       <svg {...common}>
-        <path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L4 20l1.1-4.1A8.5 8.5 0 1 1 21 11.5Z" />
-        <path d="M8.5 8.2c.2-.4.4-.5.7-.5h.6c.2 0 .4.2.5.5l.7 1.7c.1.3.1.5-.1.7l-.6.6c.7 1.2 1.6 2.1 2.8 2.7l.6-.6c.2-.2.5-.2.7-.1l1.6.8c.3.1.4.4.3.7-.2.8-.9 1.4-1.7 1.4-1.5 0-3.5-1-4.9-2.4-1.4-1.4-2.4-3.4-2.4-4.9 0-.2.1-.4.2-.6Z" />
+        <path d="M20 11.5a8 8 0 0 1-11.7 7L4 20l1.5-4.1A8 8 0 1 1 20 11.5Z" />
+        <path d="M8.2 8.2c.2-.4.4-.5.7-.5h.5c.2 0 .4.2.5.4l.7 1.7c.1.3.1.5-.1.7l-.6.7c.6 1 1.4 1.7 2.4 2.2l.7-.6c.2-.2.5-.2.7-.1l1.6.8c.3.1.4.4.3.7-.2.8-.9 1.3-1.7 1.3-1.3 0-3.1-1-4.4-2.3C8.1 11.9 7.2 10.1 7.2 8.9c0-.3.4-.6 1-.7Z" />
       </svg>
     );
   }
@@ -53,8 +54,8 @@ function SocialIcon({ type }) {
   if (type === "linkedin") {
     return (
       <svg {...common} fill="currentColor" stroke="none">
-        <path d="M6.5 8.5A1.5 1.5 0 1 0 6.5 5.5a1.5 1.5 0 0 0 0 3Z" />
-        <path d="M5 10h3v10H5zM10 10h3v1.4c.7-1 1.8-1.7 3.5-1.7 3 0 3.5 2 3.5 4.5V20h-3v-5.1c0-1.2 0-2.8-1.8-2.8s-2.2 1.4-2.2 2.8V20h-3V10Z" />
+        <circle cx="5" cy="6.5" r="1.5" />
+        <path d="M4 10h2v10H4zM8 10h2v1.5c.7-1 1.7-1.8 3.4-1.8 3.1 0 3.6 2 3.6 4.6V20h-2v-5c0-1.2 0-3-1.9-3s-2.1 1.4-2.1 2.9V20H8V10Z" />
       </svg>
     );
   }
@@ -71,7 +72,7 @@ function SocialIcon({ type }) {
   if (type === "youtube") {
     return (
       <svg {...common}>
-        <rect x="2.5" y="5" width="19" height="14" rx="4" />
+        <path d="M21 8.2a2.5 2.5 0 0 0-1.8-1.8C17.6 6 12 6 12 6s-5.6 0-7.2.4A2.5 2.5 0 0 0 3 8.2 26 26 0 0 0 2.7 12c0 1.3.1 2.6.3 3.8a2.5 2.5 0 0 0 1.8 1.8C6.4 18 12 18 12 18s5.6 0 7.2-.4a2.5 2.5 0 0 0 1.8-1.8c.2-1.2.3-2.5.3-3.8s-.1-2.6-.3-3.8Z" />
         <path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none" />
       </svg>
     );
@@ -79,12 +80,122 @@ function SocialIcon({ type }) {
 
   if (type === "behance") {
     return (
-      <svg {...common} fill="currentColor" stroke="none">
-        <path d="M4 6h5.2c2.7 0 4.1 1.2 4.1 3.2 0 1.2-.6 2.2-1.8 2.7 1.6.4 2.6 1.5 2.6 3.2 0 2.3-1.8 3.7-4.7 3.7H4V6Zm2.3 2v3h2.5c1.4 0 2-.5 2-1.5s-.6-1.5-2-1.5H6.3Zm0 5v3.6h2.8c1.5 0 2.3-.6 2.3-1.8 0-1.2-.8-1.8-2.3-1.8H6.3Z" />
-        <path d="M16 9h4v1.2h-4V9Zm2 2c2.5 0 4 1.6 4 4v.6h-6c.1 1.4.8 2.2 2.1 2.2.9 0 1.5-.3 1.9-1l1.8.7c-.7 1.4-2 2.2-3.9 2.2-2.7 0-4.3-1.7-4.3-4.4S15.2 11 18 11Zm1.9 3c-.2-1.1-.8-1.6-1.9-1.6-1 0-1.7.6-1.9 1.6h3.8Z" />
+      <svg {...common}>
+        <path d="M4 6h5.2c2.5 0 4 1.2 4 3.1 0 1.2-.7 2.2-1.8 2.7 1.6.4 2.6 1.5 2.6 3.1 0 2.3-1.8 3.6-4.6 3.6H4V6Z" />
+        <path d="M6 8v2.8h2.8c1.4 0 2.4-.4 2.4-1.5S10.3 8 8.9 8H6Zm0 4.8v3.7h3c1.5 0 2.5-.6 2.5-1.9 0-1.2-1-1.8-2.5-1.8H6Z" fill="currentColor" stroke="none" />
+        <path d="M16 8.2h4" />
+        <path d="M15.2 14.1c.2 1.4 1 2.2 2.5 2.2 1 0 1.7-.4 2.1-1l1.3.8c-.7 1.3-2 2-3.7 2-2.7 0-4.4-1.8-4.4-4.6 0-2.8 1.7-4.7 4.2-4.7 2.4 0 4 1.8 4 4.5v.8h-6Z" fill="currentColor" stroke="none" />
       </svg>
     );
   }
 
   return null;
+}
+
+const contacts = [
+  { type: "phone", label: "Phone", value: "+20 10 1438 2124", href: "tel:+201014382124" },
+  { type: "facebook", label: "Facebook", value: "/beshoo4jesus", href: "https://www.facebook.com/beshoo4jesus" },
+  { type: "instagram", label: "Instagram", value: "@beshoonashaat10", href: "https://www.instagram.com/beshoonashaat10/" },
+  { type: "whatsapp", label: "WhatsApp", value: "Message me", href: "https://wa.me/201014382124" },
+  { type: "linkedin", label: "LinkedIn", value: "Beshoy Nashaat", href: "https://www.linkedin.com/in/beshoy-nashaat-19640620b/" },
+  { type: "email", label: "Email", value: "beshoo.nashaat10@gmail.com", href: "mailto:beshoo.nashaat10@gmail.com" },
+  { type: "youtube", label: "YouTube", value: "@beshoonashaat10", href: "https://www.youtube.com/@beshoonashaat10" },
+  { type: "behance", label: "Behance", value: "beshoonashaat10", href: "https://www.behance.net/beshoonashaat10" },
+];
+
+export default function Home() {
+  return (
+    <main>
+      <nav className="top">
+        <div className="top-in">
+          <Link href="/" className="logo">BESHOY <span>NASHAAT</span></Link>
+          <div className="nav-right">
+            <span>VIDEO EDITOR · ASSIUT, EGYPT</span>
+            <a href="#contact">CONTACT <Arrow /></a>
+          </div>
+        </div>
+      </nav>
+
+      <section className="work-hero">
+        <div className="work-hero-in">
+          <div>
+            <span className="eyebrow lime">BESHОY NASHAAT — VIDEO EDITOR</span>
+            <h1>Beshoy<br /><em>Nashaat.</em></h1>
+            <p className="intro-bio">
+              A creative Video Editor and a Data Science undergraduate. I specialize in crafting engaging visual stories, from long-form content to high-retention short reels. By combining creative storytelling with an analytical mindset, I edit videos that don't just look great—they perform
+            </p>
+          </div>
+          <div className="hero-copy">
+            <p>Turning ideas into powerful visuals.</p>
+            <div>Editing <b>•</b> Motion <b>•</b> Storytelling</div>
+          </div>
+          <a href="#work" className="all-work">VIEW ALL WORK <Arrow /></a>
+        </div>
+      </section>
+
+      <section id="work" className="work work-target">
+        <div className="section-heading">
+          <span className="eyebrow">01 — SELECTED WORK</span>
+          <h2>Projects</h2>
+        </div>
+        <div className="project-list">
+          {projects.map((p) => (
+            <Link className="project-row" href={`/projects/${p.slug}`} key={p.slug}>
+              <div className="row-no">{p.number}</div>
+              <div className="row-main">
+                <div className="row-thumb">
+                  <img src={p.cover} alt={`${p.title} project cover`} />
+                </div>
+                <div className="row-copy">
+                  <h3>{p.title}</h3>
+                  <p>{p.description}</p>
+                  <div className="tags">
+                    {p.description.split(" · ").map((tag, i) => <span key={`${p.slug}-${i}`}>{tag}</span>)}
+                  </div>
+                </div>
+              </div>
+              <div className="row-arrow"><Arrow /></div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="statement">
+        <div className="statement-in">
+          <span className="eyebrow">THE APPROACH</span>
+          <h2>Good editing isn't<br /><i>just cutting.</i><br />It's <strong>feeling.</strong></h2>
+        </div>
+      </section>
+
+      <section id="contact" className="contact">
+        <div className="contact-in">
+          <div>
+            <span className="eyebrow">02 — CONTACT</span>
+            <h2>Let's make<br /><i>something.</i></h2>
+          </div>
+          <div className="contact-grid">
+            {contacts.map((item) => (
+              <a
+                key={item.type}
+                href={item.href}
+                target={item.href.startsWith("http") ? "_blank" : undefined}
+                rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+              >
+                <SocialIcon type={item.type} />
+                <b>{item.label}</b>
+                <span>{item.value}</span>
+                <Arrow />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <span className="footer-name">BESHOY NASHAAT</span>
+        <span>© 2026 BESHOY NASHAAT. All rights reserved.</span>
+        <span>VIDEO EDITOR · MOTION DESIGN</span>
+      </footer>
+    </main>
+  );
 }
