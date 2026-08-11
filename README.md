@@ -32,3 +32,6 @@ Import the folder/repository into Vercel. Vercel will run npm run build.
 
 If Behance changes its HTML/anti-bot behavior, update lib/scrape.js. No frontend
 project links need to change.
+
+
+FIXED: lib/scrape.js regex escaping and Next.js 16 async route/page params.

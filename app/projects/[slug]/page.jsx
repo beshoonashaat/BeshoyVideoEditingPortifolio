@@ -7,7 +7,8 @@ export const dynamic="force-dynamic";
 export async function generateStaticParams(){return projects.map(p=>({slug:p.slug}))}
 
 export default async function ProjectPage({params}){
- const p=getProject(params.slug); if(!p) notFound();
+ const {slug}=await params;
+ const p=getProject(slug); if(!p) notFound();
  let media=[], live=true, error="";
  try{media=await scrapeProject(p.behance)}catch(e){live=false;error=e.message}
  const yt=media.filter(x=>x.type==="youtube"), ig=media.filter(x=>x.type==="instagram");
