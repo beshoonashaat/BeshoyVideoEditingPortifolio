@@ -11,8 +11,8 @@ function parseMessage(text) {
   let section = "";
   for (const line of lines) {
     const match = line.match(/^Project Name:\s*(.*)$/i);
-    if (match) { project.title = match[1]; continue; }
-    if (/^Project URL:?$/i.test(line)) { section = "behance"; continue; }
+    if (match) { project.title = match[1]; }
+    if (/^Project URL:?$/i.test(line)) { section = "behance"; }
     if (/^YouTube:?$/i.test(line)) { section = "youtube"; continue; }
     if (/^Instagram Reels:?$/i.test(line)) { section = "instagram"; continue; }
     const urlMatch = line.match(/https?:\/\/[^\s)\]]+/i);
