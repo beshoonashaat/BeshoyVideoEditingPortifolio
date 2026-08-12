@@ -37,7 +37,8 @@ export default function AdminPage() {
   const parsed = useMemo(() => parseMessage(message), [message]);
 
   function addProject() {
-    if (!parsed.title || !parsed.behance) return setNotice("اكتب Project Name و Project URL الأول.");
+    if (!parsed.title) return setNotice("اكتب Project Name الأول.");
+    if (!parsed.behance) parsed.behance = `https://www.behance.net/gallery/238045891/Ashab-El-Sa3ada-`;
     const slug = parsed.title.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const youtube = parsed.youtube.map((url, i) => ({ id: crypto.randomUUID(), title: `${parsed.title} — Edit ${String(i + 1).padStart(2, "0")}`, url }));
     const instagram = parsed.instagram.map((url, i) => ({ id: crypto.randomUUID(), title: `${parsed.title} — Reel ${String(i + 1).padStart(2, "0")}`, url }));
