@@ -24,31 +24,56 @@ function parseMessage(text) {
   };
 
   let section = "";
+  let waitingForProjectName = false;
 
   for (const line of lines) {
-    const match = line.match(/^Project Name:\s*(.*)$/i);
-
-    if (match) {
-      project.title = match[1];
+    // Project Name
+    if (/^Project Name:?$/i.test(line)) {
+      waitingForProjectName = true;
+      section = "";
       continue;
     }
 
+    // Project Name: Esndny
+    const projectNameMatch = line.match(
+      /^Project Name:\s*(.+)$/i
+    );
+
+    if (projectNameMatch) {
+      project.title = projectNameMatch[1].trim();
+      waitingForProjectName = false;
+      continue;
+    }
+
+    // الاسم موجود في السطر اللي بعد Project Name:
+    if (waitingForProjectName) {
+      project.title = line;
+      waitingForProjectName = false;
+      continue;
+    }
+
+    // Behance / Project URL
     if (/^Project URL:?$/i.test(line)) {
       section = "behance";
       continue;
     }
 
+    // YouTube
     if (/^YouTube:?$/i.test(line)) {
       section = "youtube";
       continue;
     }
 
+    // Instagram
     if (/^Instagram Reels:?$/i.test(line)) {
       section = "instagram";
       continue;
     }
 
-    const urlMatch = line.match(/https?:\/\/[^\s)\]]+/i);
+    // URLs
+    const urlMatch = line.match(
+      /https?:\/\/[^\s)\]]+/i
+    );
 
     if (urlMatch) {
       const url = urlMatch[0];
