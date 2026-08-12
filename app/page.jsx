@@ -236,15 +236,9 @@ export default function Home() {
           0
         )}
       </span>
-      <span className="stat-label">VIDEOS</span>
     </div>
 
-    <div className="stat-caption">
-      <span className="eyebrow lime">THE NUMBERS</span>
-      <p>
-        A growing collection of edits, stories and visual work.
-      </p>
-    </div>
+
 
   </div>
 </section>
