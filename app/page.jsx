@@ -2,7 +2,13 @@ import Link from "next/link";
 import { projects } from "../lib/projects";
 
 function Arrow() {
-  return <span className="arrow">↗</span>;
+  return (
+    <span className="arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 19L19 5M8 5H19V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
 }
 
 function SocialIcon({ type }) {
