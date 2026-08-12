@@ -337,11 +337,12 @@
     ]
   },
   {
-    "slug": "ashab-el-sa3ada",
-    "title": "Ashab El Sa3ada",
-    "number": "05",
-    "description": "Music video · Album production · Social content",
-    "cover": "/project-covers/ashab-el-sa3ada.jpg",
+    "slug": "aswat-band",
+    "title": "Aswat Band - أصوات باند",
+    "number": "06",
+    "description": "Video editing · Motion design · Social content",
+    "cover": "/project-covers/aswat-band.jpg",
+    "behance": "",
     "youtube": [
       {
         "id": "cQdirY_Xq94",
@@ -384,77 +385,6 @@
         "url": "https://www.youtube.com/watch?v=78QxVLRGsAM"
       }
     ],
-    "instagram": [
-      {
-        "id": "DBo6-H6JqwE",
-        "title": "Ashab El Sa3ada — Reel 01",
-        "url": "https://www.instagram.com/p/DBo6-H6JqwE/"
-      },
-      {
-        "id": "DB7JF5FJf7V",
-        "title": "Ashab El Sa3ada — Reel 02",
-        "url": "https://www.instagram.com/p/DB7JF5FJf7V/"
-      },
-      {
-        "id": "DCNEe-ZNjDx",
-        "title": "Ashab El Sa3ada — Reel 03",
-        "url": "https://www.instagram.com/p/DCNEe-ZNjDx/"
-      },
-      {
-        "id": "DCfGddfBHSc",
-        "title": "Ashab El Sa3ada — Reel 04",
-        "url": "https://www.instagram.com/p/DCfGddfBHSc/"
-      },
-      {
-        "id": "DCxNgzAqStQ",
-        "title": "Ashab El Sa3ada — Reel 05",
-        "url": "https://www.instagram.com/p/DCxNgzAqStQ/"
-      },
-      {
-        "id": "DDIPweRoVdE",
-        "title": "Ashab El Sa3ada — Reel 06",
-        "url": "https://www.instagram.com/p/DDIPweRoVdE/"
-      },
-      {
-        "id": "DDaR2TYqYDe",
-        "title": "Ashab El Sa3ada — Reel 07",
-        "url": "https://www.instagram.com/p/DDaR2TYqYDe/"
-      },
-      {
-        "id": "DBzUJLSNQ6-",
-        "title": "Ashab El Sa3ada — Reel 08",
-        "url": "https://www.instagram.com/p/DBzUJLSNQ6-/"
-      },
-      {
-        "id": "DCFWgcBJ0hi",
-        "title": "Ashab El Sa3ada — Reel 09",
-        "url": "https://www.instagram.com/p/DCFWgcBJ0hi/"
-      },
-      {
-        "id": "DCUv6getG2V",
-        "title": "Ashab El Sa3ada — Reel 10",
-        "url": "https://www.instagram.com/p/DCUv6getG2V/"
-      },
-      {
-        "id": "DCpXatrBEET",
-        "title": "Ashab El Sa3ada — Reel 11",
-        "url": "https://www.instagram.com/p/DCpXatrBEET/"
-      },
-      {
-        "id": "DC4x9szsQZ6",
-        "title": "Ashab El Sa3ada — Reel 12",
-        "url": "https://www.instagram.com/p/DC4x9szsQZ6/"
-      }
-    ]
-  },
-  {
-    "slug": "aswat-band",
-    "title": "Aswat Band - أصوات باند",
-    "number": "06",
-    "description": "Video editing · Motion design · Social content",
-    "cover": "/project-covers/aswat-band.jpg",
-    "behance": "",
-    "youtube": [],
     "instagram": [
       {
         "id": "C6eQ0cKK6yn",
