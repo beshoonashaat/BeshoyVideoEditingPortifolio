@@ -103,3 +103,104 @@ footer{background:#08090a}.footer-name{color:#eee;font:600 13px "Space Grotesk";
 .admin-page{min-height:100vh;padding:70px 20px;background:radial-gradient(circle at 80% 0,#14171a 0,transparent 40%),var(--bg)}
 .admin-shell{width:min(1000px,100%);margin:auto}.admin-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:35px}.admin-head h1{font:500 clamp(52px,8vw,90px)/.85 "Space Grotesk";letter-spacing:-.08em;margin:18px 0}.admin-head p{color:#777;max-width:520px}.admin-head>a{border:1px solid #303236;border-radius:999px;padding:12px 16px;font-size:9px;letter-spacing:.12em}.admin-card{border:1px solid #292b2e;border-radius:14px;background:#101214;padding:24px;margin-bottom:18px}.admin-card label{display:block;color:#777;font-size:9px;letter-spacing:.15em;margin-bottom:20px}.admin-card input,.admin-card textarea{display:block;width:100%;margin-top:9px;border:1px solid #303236;background:#090a0b;color:#eee;border-radius:8px;padding:13px;font:13px "DM Sans"}.admin-card textarea{min-height:300px;resize:vertical;line-height:1.7}.admin-card input[type=file]{padding:10px}.primary{border:1px solid var(--lime);background:var(--lime);color:#090a0b;border-radius:999px;padding:13px 18px;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer}.primary:disabled{opacity:.5;cursor:not-allowed}.list-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292b2e;padding-bottom:15px;margin-bottom:8px}.list-head h2{font:500 25px "Space Grotesk";margin:0}.list-head span,.empty,.file-note,.notice{color:#777;font-size:11px}.admin-project{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #242629}.admin-project b{display:block;font-size:14px}.admin-project small{display:block;color:#666;font-size:10px;margin-top:5px}.move{display:flex;gap:6px}.move button{width:34px;height:34px;border:1px solid #303236;border-radius:50%;background:#17191b;color:#ddd;cursor:pointer}.move button:disabled{opacity:.25;cursor:not-allowed}.save{margin-top:20px}.notice{margin:15px 0 0;color:var(--lime)}
 @media(max-width:650px){.admin-page{padding:35px 14px}.admin-head{display:block}.admin-head>a{display:inline-block;margin-top:10px}.admin-card{padding:17px}.admin-card textarea{min-height:250px}.admin-project b{font-size:12px}.move button{width:31px;height:31px}}
+
+.stats {
+  width: min(1240px, calc(100% - 60px));
+  margin: 0 auto;
+  padding: 70px 0 100px;
+}
+
+.stats-in {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr 1.3fr;
+  align-items: center;
+
+  min-height: 220px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 35px 45px;
+}
+
+.stat-number {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(70px, 8vw, 120px);
+  line-height: .8;
+  letter-spacing: -.09em;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.stat-label {
+  margin-top: 20px;
+  font-size: 9px;
+  letter-spacing: .2em;
+  color: var(--muted);
+}
+
+.stat-divider {
+  width: 1px;
+  height: 100px;
+  background: var(--line);
+}
+
+.stat-caption {
+  padding: 35px 20px 35px 50px;
+  max-width: 300px;
+}
+
+.stat-caption p {
+  margin: 18px 0 0;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.stat-number {
+  display: block;
+  min-width: 2ch;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(70px, 8vw, 120px);
+  line-height: .8;
+  letter-spacing: -.09em;
+  font-weight: 500;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 650px) {
+  .stats {
+    width: calc(100% - 28px);
+    padding: 45px 0 65px;
+  }
+
+  .stats-in {
+    grid-template-columns: 1fr 1fr;
+    min-height: auto;
+  }
+
+  .stat {
+    padding: 30px 20px;
+  }
+
+  .stat-number {
+    font-size: 64px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stat-caption {
+    grid-column: 1 / -1;
+    max-width: none;
+    padding: 25px 20px 30px;
+    border-top: 1px solid var(--line);
+  }
+}

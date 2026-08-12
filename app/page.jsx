@@ -1,5 +1,10 @@
 import Link from "next/link";
 import { projects } from "../lib/projects";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { projects } from "../lib/projects";
 
 function Arrow() {
   return (
@@ -109,6 +114,76 @@ const contacts = [
   { type: "behance", label: "Behance", value: "beshoonashaat10", href: "https://www.behance.net/beshoonashaat10" },
 ];
 
+function Counter({ value, duration = 1400 }) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const element = ref.current;
+
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started) {
+          setStarted(true);
+        }
+      },
+      {
+        threshold: 0.4,
+      }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [started]);
+
+  useEffect(() => {
+    if (!started) return;
+
+    let startTime = null;
+    let animationFrame;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+
+      const progress = Math.min(
+        (timestamp - startTime) / duration,
+        1
+      );
+
+      // Smooth ease-out
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setCount(Math.floor(eased * value));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(value);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [started, value, duration]);
+
+  return <span ref={ref} className="stat-number">{count}</span>;
+}
+
+const totalVideos = projects.reduce((total, project) => {
+  return (
+    total +
+    (project.youtube?.length || 0) +
+    (project.instagram?.length || 0)
+  );
+}, 0);
+
+
+
 export default function Home() {
   return (
     <main>
@@ -138,6 +213,64 @@ export default function Home() {
           <a href="#work" className="all-work">VIEW ALL WORK <Arrow /></a>
         </div>
       </section>
+
+      <section className="stats">
+  <div className="stats-in">
+
+    <div className="stat">
+      <span className="stat-number">{projects.length}</span>
+      <span className="stat-label">PROJECTS</span>
+    </div>
+
+    <div className="stat-divider" />
+
+    <div className="stat">
+      <span className="stat-number">
+        {projects.reduce(
+          (total, project) =>
+            total +
+            (project.youtube?.length || 0) +
+            (project.instagram?.length || 0),
+          0
+        )}
+      </span>
+      <span className="stat-label">VIDEOS</span>
+    </div>
+
+    <div className="stat-caption">
+      <span className="eyebrow lime">THE NUMBERS</span>
+      <p>
+        A growing collection of edits, stories and visual work.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section className="stats">
+  <div className="stats-in">
+
+    <div className="stat">
+      <Counter value={projects.length} />
+      <span className="stat-label">PROJECTS</span>
+    </div>
+
+    <div className="stat-divider" />
+
+    <div className="stat">
+      <Counter value={totalVideos} />
+      <span className="stat-label">VIDEOS</span>
+    </div>
+
+    <div className="stat-caption">
+      <span className="eyebrow lime">THE NUMBERS</span>
+      <p>
+        A growing collection of edits, stories and visual work.
+      </p>
+    </div>
+
+  </div>
+</section>
 
       <section id="work" className="work work-target">
         <div className="section-heading">
