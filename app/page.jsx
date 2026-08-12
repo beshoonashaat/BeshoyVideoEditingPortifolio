@@ -216,33 +216,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="stats">
-  <div className="stats-in">
-
-    <div className="stat">
-      <span className="stat-number">{projects.length}</span>
-      <span className="stat-label">PROJECTS</span>
-    </div>
-
-    <div className="stat-divider" />
-
-    <div className="stat">
-      <span className="stat-number">
-        {projects.reduce(
-          (total, project) =>
-            total +
-            (project.youtube?.length || 0) +
-            (project.instagram?.length || 0),
-          0
-        )}
-      </span>
-    </div>
-
-
-
-  </div>
-</section>
-
+      
 <section className="stats">
   <div className="stats-in">
 
