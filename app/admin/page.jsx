@@ -11,6 +11,22 @@ const emptyForm = {
   instagram: "",
 };
 
+
+
+function extractYoutubeId(url) {
+  const match = String(url || "").match(
+    /(?:v=|youtu\.be\/|youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/
+  );
+  return match?.[1] || "";
+}
+
+function extractInstagramId(url) {
+  const match = String(url || "").match(
+    /instagram\.com\/(?:reel|p)\/([^/?#]+)/i
+  );
+  return match?.[1] || "";
+}
+
 function parseMessage(text) {
   const lines = text
     .split(/\r?\n/)
@@ -126,17 +142,21 @@ export default function AdminPage() {
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
 
-    const youtube = parsed.youtube.map((url, i) => ({
-      id: crypto.randomUUID(),
-      title: `${parsed.title} — Edit ${String(i + 1).padStart(2, "0")}`,
-      url,
-    }));
+    const youtube = parsed.youtube
+      .map((url, i) => ({
+        id: extractYoutubeId(url),
+        title: `${parsed.title} — Edit ${String(i + 1).padStart(2, "0")}`,
+        url,
+      }))
+      .filter((video) => video.id);
 
-const instagram = parsed.instagram.map((url, i) => ({
-  id: crypto.randomUUID(),
-  title: `${parsed.title} — Reel ${String(i + 1).padStart(2, "0")}`,
-  url,
-}));
+    const instagram = parsed.instagram
+      .map((url, i) => ({
+        id: extractInstagramId(url),
+        title: `${parsed.title} — Reel ${String(i + 1).padStart(2, "0")}`,
+        url,
+      }))
+      .filter((post) => post.id);
 
     setProjects((prev) => {
       const next = prev.filter(

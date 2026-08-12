@@ -7,15 +7,42 @@ function auth(request, body) {
   return password && password === process.env.ADMIN_PASSWORD;
 }
 
+function extractYoutubeId(url) {
+  const match = String(url || "").match(
+    /(?:v=|youtu\.be\/|youtube\.com\/shorts\/)([A-Za-z0-9_-]{11})/
+  );
+  return match?.[1] || "";
+}
+
+function extractInstagramId(url) {
+  const match = String(url || "").match(
+    /instagram\.com\/(?:reel|p)\/([^/?#]+)/i
+  );
+  return match?.[1] || "";
+}
+
 function cleanProject(project, index) {
   const slug = String(project.slug || project.title || `project-${Date.now()}`)
     .toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  const youtube = Array.isArray(project.youtube)
+    ? project.youtube
+        .map((video) => ({ ...video, id: extractYoutubeId(video.url) || video.id || "" }))
+        .filter((video) => video.id)
+    : [];
+
+  const instagram = Array.isArray(project.instagram)
+    ? project.instagram
+        .map((post) => ({ ...post, id: extractInstagramId(post.url) || post.id || "" }))
+        .filter((post) => post.id)
+    : [];
+
   return {
     ...project,
     slug,
     number: String(index + 1).padStart(2, "0"),
-    youtube: Array.isArray(project.youtube) ? project.youtube : [],
-    instagram: Array.isArray(project.instagram) ? project.instagram : [],
+    youtube,
+    instagram,
   };
 }
 
