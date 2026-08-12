@@ -5,57 +5,45 @@ export const dynamic="force-static";
 export function generateStaticParams(){return projects.map(p=>({slug:p.slug}))}
 function YouTubeCard({v,i}){return <article className="video-card"><div className="video-frame"><iframe src={`https://www.youtube.com/embed/${v.id}?rel=0&modestbranding=1`} title={v.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen/></div><div className="video-meta"><span>{String(i+1).padStart(2,"0")} / YOUTUBE</span><h3>{v.title}</h3></div></article>}
 function InstagramCard({v,i}){return <article className="video-card ig-card"><div className="ig-frame"><iframe src={`https://www.instagram.com/p/${v.id}/embed`} title={v.title} scrolling="no" allowTransparency allowFullScreen/></div><div className="video-meta"><span>{String(i+1).padStart(2,"0")} / INSTAGRAM</span><h3>{v.title}</h3></div></article>}
-function getInstagramEmbedUrl(url) {
-  if (!url) return null;
-
-  try {
-    const parsed = new URL(url);
-    const pathname = parsed.pathname.replace(/\/+$/, "");
-
-    // Instagram posts
-    if (pathname.startsWith("/p/")) {
-      return `https://www.instagram.com${pathname}/embed`;
-    }
-
-    // Instagram Reels
-    if (pathname.startsWith("/reel/")) {
-      return `https://www.instagram.com${pathname}/embed`;
-    }
-
-    // Instagram Reels (alternate plural route)
-    if (pathname.startsWith("/reels/")) {
-      return `https://www.instagram.com${pathname}/embed`;
-    }
-
-    return null;
-  } catch {
-    return null;
+function getInstagramUrl(url, id) {
+  if (url) {
+    try {
+      const parsed = new URL(url);
+      if (parsed.hostname.includes("instagram.com")) {
+        return parsed.toString();
+      }
+    } catch {}
   }
+
+  // Backward compatibility for old project data where id is the Instagram shortcode.
+  if (id) {
+    return `https://www.instagram.com/p/${id}/`;
+  }
+
+  return null;
 }
 
 function IG({ v, i }) {
-  const embedUrl = getInstagramEmbedUrl(v.url);
+  const instagramUrl = getInstagramUrl(v?.url, v?.id);
 
   return (
     <article className="vcard igcard">
       <div className="igframe">
-        {embedUrl ? (
-          <iframe
-            src={embedUrl}
-            title={v.title}
-            scrolling="no"
-            allowTransparency
-            allowFullScreen
-          />
-        ) : (
+        {instagramUrl ? (
           <a
-            href={v.url}
+            href={instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="instagram-fallback"
+            className="instagram-open-card"
+            aria-label={`Open ${v.title} on Instagram`}
           >
-            OPEN ON INSTAGRAM ↗
+            <div className="instagram-open-icon">◎</div>
+            <span>OPEN REEL ON INSTAGRAM ↗</span>
           </a>
+        ) : (
+          <div className="instagram-open-card">
+            <span>INSTAGRAM LINK UNAVAILABLE</span>
+          </div>
         )}
       </div>
 
