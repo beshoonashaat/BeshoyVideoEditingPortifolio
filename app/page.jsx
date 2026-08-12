@@ -1,10 +1,80 @@
-import Link from "next/link";
-import { projects } from "../lib/projects";
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { projects } from "../lib/projects";
+
+function Counter({ value, duration = 1400 }) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const element = ref.current;
+
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started) {
+          setStarted(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.4,
+      }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [started]);
+
+  useEffect(() => {
+    if (!started) return;
+
+    let startTime = null;
+    let animationFrame;
+
+    const animate = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+
+      const progress = Math.min(
+        (timestamp - startTime) / duration,
+        1
+      );
+
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setCount(Math.floor(eased * value));
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(value);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [started, value, duration]);
+
+  return (
+    <span ref={ref} className="stat-number">
+      {count}
+    </span>
+  );
+}
+
+const totalVideos = projects.reduce((total, project) => {
+  return (
+    total +
+    (project.youtube?.length || 0) +
+    (project.instagram?.length || 0)
+  );
+}, 0);
 
 function Arrow() {
   return (
