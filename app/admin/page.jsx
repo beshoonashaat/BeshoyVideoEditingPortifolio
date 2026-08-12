@@ -11,29 +11,6 @@ const emptyForm = {
   instagram: "",
 };
 
-function cleanUrl(line) {
-  // Markdown:
-  // [https://youtube.com/xxx](https://youtube.com/xxx)
-  const markdownMatch = line.match(
-    /\]\((https?:\/\/[^)]+)\)/
-  );
-
-  if (markdownMatch) {
-    return markdownMatch[1].trim();
-  }
-
-  // Normal URL
-  const normalMatch = line.match(
-    /https?:\/\/[^\s)\]]+/i
-  );
-
-  if (normalMatch) {
-    return normalMatch[0].trim();
-  }
-
-  return null;
-}
-
 function parseMessage(text) {
   const lines = text
     .split(/\r?\n/)
@@ -50,196 +27,85 @@ function parseMessage(text) {
   let waitingForProjectName = false;
 
   for (const line of lines) {
-    /*
-     * PROJECT NAME
-     *
-     * Supports:
-     *
-     * Project Name: Esndny
-     *
-     * OR:
-     *
-     * Project Name:
-     * Esndny
-     */
-
-    const inlineName = line.match(
-      /^Project Name:\s*(.+)$/i
-    );
-
-    if (inlineName) {
-      project.title = inlineName[1].trim();
-      waitingForProjectName = false;
-      section = "";
-      continue;
-    }
-
+    // Project Name
     if (/^Project Name:?$/i.test(line)) {
       waitingForProjectName = true;
       section = "";
       continue;
     }
 
+    // Project Name: Esndny
+    const projectNameMatch = line.match(
+      /^Project Name:\s*(.+)$/i
+    );
+
+    if (projectNameMatch) {
+      project.title = projectNameMatch[1].trim();
+      waitingForProjectName = false;
+      continue;
+    }
+
+    // الاسم موجود في السطر اللي بعد Project Name:
     if (waitingForProjectName) {
       project.title = line;
       waitingForProjectName = false;
       continue;
     }
 
-    /*
-     * BEHANCE / PROJECT URL
-     *
-     * OPTIONAL
-     */
-
+    // Behance / Project URL
     if (/^Project URL:?$/i.test(line)) {
       section = "behance";
       continue;
     }
 
-    /*
-     * YOUTUBE
-     */
-
+    // YouTube
     if (/^YouTube:?$/i.test(line)) {
       section = "youtube";
       continue;
     }
 
-    /*
-     * INSTAGRAM
-     */
-
+    // Instagram
     if (/^Instagram Reels:?$/i.test(line)) {
       section = "instagram";
       continue;
     }
 
-    /*
-     * URL
-     */
+    // URLs
+    const urlMatch = line.match(
+      /https?:\/\/[^\s)\]]+/i
+    );
 
-    const url = cleanUrl(line);
+    if (urlMatch) {
+      const url = urlMatch[0];
 
-    if (!url) {
-      continue;
-    }
+      if (section === "behance") {
+        project.behance = url;
+      }
 
-    /*
-     * Behance
-     */
+      if (
+        section === "youtube" &&
+        !/PASTE_/i.test(url)
+      ) {
+        project.youtube.push(url);
+      }
 
-    if (section === "behance") {
-      project.behance = url;
-      continue;
-    }
-
-    /*
-     * YouTube
-     */
-
-    if (
-      section === "youtube" &&
-      !/PASTE_/i.test(url)
-    ) {
-      project.youtube.push(url);
-      continue;
-    }
-
-    /*
-     * Instagram
-     */
-
-    if (
-      section === "instagram" &&
-      !/PASTE_/i.test(url)
-    ) {
-      project.instagram.push(url);
-      continue;
+      if (
+        section === "instagram" &&
+        !/PASTE_/i.test(url)
+      ) {
+        project.instagram.push(url);
+      }
     }
   }
 
   return project;
 }
 
-function getYoutubeId(url) {
-  if (!url) return null;
-
-  try {
-    const parsed = new URL(url);
-
-    /*
-     * https://www.youtube.com/watch?v=ABC123
-     */
-
-    if (
-      parsed.hostname.includes("youtube.com") &&
-      parsed.pathname === "/watch"
-    ) {
-      return parsed.searchParams.get("v");
-    }
-
-    /*
-     * https://youtu.be/ABC123
-     */
-
-    if (
-      parsed.hostname === "youtu.be"
-    ) {
-      return parsed.pathname
-        .replace("/", "")
-        .split("?")[0];
-    }
-
-    /*
-     * https://www.youtube.com/embed/ABC123
-     */
-
-    if (
-      parsed.hostname.includes("youtube.com") &&
-      parsed.pathname.startsWith("/embed/")
-    ) {
-      return parsed.pathname
-        .replace("/embed/", "")
-        .split("?")[0];
-    }
-
-    /*
-     * https://www.youtube.com/shorts/ABC123
-     */
-
-    if (
-      parsed.hostname.includes("youtube.com") &&
-      parsed.pathname.startsWith("/shorts/")
-    ) {
-      return parsed.pathname
-        .replace("/shorts/", "")
-        .split("?")[0];
-    }
-
-    return null;
-  } catch {
-    return null;
-  }
-}
-
-function normalizeYoutubeUrl(url) {
-  const id = getYoutubeId(url);
-
-  if (!id) {
-    return url;
-  }
-
-  return `https://www.youtube.com/watch?v=${id}`;
-}
-
 export default function AdminPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [image, setImage] = useState(null);
-  const [projects, setProjects] =
-    useState(initialProjects);
-
+  const [projects, setProjects] = useState(initialProjects);
   const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -248,94 +114,58 @@ export default function AdminPage() {
     [message]
   );
 
-  function createSlug(title) {
-    return title
+  function addProject() {
+    // Behance أصبح اختياري
+    if (!parsed.title) {
+      return setNotice("اكتب Project Name الأول.");
+    }
+
+    const slug = parsed.title
       .toLowerCase()
       .trim()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "");
-  }
 
-  function addProject() {
-    /*
-     * Behance is NOT required.
-     * Only Project Name is required.
-     */
+    const youtube = parsed.youtube.map((url, i) => ({
+      id: crypto.randomUUID(),
+      title: `${parsed.title} — Edit ${String(i + 1).padStart(2, "0")}`,
+      url,
+    }));
 
-    if (!parsed.title) {
-      setNotice("اكتب Project Name الأول.");
-      return false;
-    }
-
-    const slug = createSlug(parsed.title);
-
-    /*
-     * Normalize YouTube URLs
-     */
-
-    const youtube = parsed.youtube
-      .map(normalizeYoutubeUrl)
-      .filter(Boolean)
-      .map((url, i) => ({
-        id: crypto.randomUUID(),
-        title: `${parsed.title} — Edit ${String(
-          i + 1
-        ).padStart(2, "0")}`,
-        url,
-      }));
-
-    /*
-     * Instagram
-     */
-
-    const instagram = parsed.instagram.map(
-      (url, i) => ({
-        id: crypto.randomUUID(),
-        title: `${parsed.title} — Reel ${String(
-          i + 1
-        ).padStart(2, "0")}`,
-        url,
-      })
-    );
-
-    const newProject = {
-      slug,
-      title: parsed.title,
-      number: "",
-      description: parsed.description,
-      cover: "",
-
-      /*
-       * Behance is optional.
-       */
-
-      behance: parsed.behance || "",
-
-      youtube,
-      instagram,
-    };
+const instagram = parsed.instagram.map((url, i) => ({
+  id: crypto.randomUUID(),
+  title: `${parsed.title} — Reel ${String(i + 1).padStart(2, "0")}`,
+  url,
+}));
 
     setProjects((prev) => {
       const next = prev.filter(
         (item) => item.slug !== slug
       );
 
-      return [...next, newProject];
+      return [
+        ...next,
+        {
+          slug,
+          title: parsed.title,
+          number: "",
+          description: parsed.description,
+          cover: "",
+          // ممكن يكون فاضي
+          behance: parsed.behance || "",
+          youtube,
+          instagram,
+        },
+      ];
     });
 
-    setNotice(
-      `تم تجهيز ${parsed.title}`
-    );
-
-    return true;
+    setNotice(`تم تجهيز ${parsed.title}`);
   }
 
   function move(index, direction) {
     setProjects((prev) => {
       const next = [...prev];
-
-      const target =
-        index + direction;
+      const target = index + direction;
 
       if (
         target < 0 ||
@@ -344,10 +174,7 @@ export default function AdminPage() {
         return prev;
       }
 
-      [
-        next[index],
-        next[target],
-      ] = [
+      [next[index], next[target]] = [
         next[target],
         next[index],
       ];
@@ -358,17 +185,11 @@ export default function AdminPage() {
 
   async function save() {
     if (!password) {
-      setNotice(
-        "اكتب باسورد الأدمن."
-      );
-      return;
+      return setNotice("اكتب باسورد الأدمن.");
     }
 
     if (!projects.length) {
-      setNotice(
-        "مفيش Projects للحفظ."
-      );
-      return;
+      return setNotice("مفيش Projects للحفظ.");
     }
 
     setLoading(true);
@@ -381,9 +202,7 @@ export default function AdminPage() {
         image: image
           ? {
               ...image,
-              slug:
-                image.slug ||
-                projects.at(-1)?.slug,
+              slug: projects.at(-1)?.slug,
             }
           : null,
       };
@@ -392,108 +211,36 @@ export default function AdminPage() {
         "/api/admin/projects",
         {
           method: "POST",
-
           headers: {
-            "Content-Type":
-              "application/json",
+            "Content-Type": "application/json",
           },
-
-          body: JSON.stringify(
-            payload
-          ),
+          body: JSON.stringify(payload),
         }
       );
 
-      const data =
-        await res.json();
+      const data = await res.json();
 
       if (!res.ok) {
         throw new Error(
-          data.error ||
-            "Save failed"
+          data.error || "Save failed"
         );
       }
 
-      setProjects(
-        data.projects
-      );
+      setProjects(data.projects);
 
       setNotice(
         "اتحفظت على GitHub. Vercel هيعمل Deploy تلقائي."
       );
-
-      setImage(null);
     } catch (error) {
-      setNotice(
-        error?.message ||
-          "حصل خطأ أثناء الحفظ."
-      );
+      setNotice(error.message);
     } finally {
       setLoading(false);
     }
   }
 
-  async function handleAddProject() {
-    const file =
-      document.querySelector(
-        'input[type="file"]'
-      )?.files?.[0];
-
-    /*
-     * No cover
-     */
-
-    if (!file) {
-      addProject();
-      return;
-    }
-
-    /*
-     * With cover
-     */
-
-    const parsedProject =
-      parseMessage(message);
-
-    if (!parsedProject.title) {
-      setNotice(
-        "اكتب Project Name الأول."
-      );
-      return;
-    }
-
-    const slug =
-      createSlug(
-        parsedProject.title
-      );
-
-    const reader =
-      new FileReader();
-
-    reader.onload = () => {
-      setImage({
-        filename: file.name,
-        base64: reader.result,
-        slug,
-      });
-
-      addProject();
-    };
-
-    reader.onerror = () => {
-      setNotice(
-        "حصل خطأ في قراءة الصورة."
-      );
-    };
-
-    reader.readAsDataURL(file);
-  }
-
   return (
     <main className="admin-page">
       <div className="admin-shell">
-
-        {/* HEADER */}
 
         <div className="admin-head">
           <div>
@@ -501,9 +248,7 @@ export default function AdminPage() {
               BESHOY NASHAAT — ADMIN
             </span>
 
-            <h1>
-              Manage Projects.
-            </h1>
+            <h1>Manage Projects.</h1>
 
             <p>
               Add projects, upload covers,
@@ -516,8 +261,6 @@ export default function AdminPage() {
           </a>
         </div>
 
-        {/* ADD PROJECT */}
-
         <section className="admin-card">
 
           <label>
@@ -527,9 +270,7 @@ export default function AdminPage() {
               type="password"
               value={password}
               onChange={(e) =>
-                setPassword(
-                  e.target.value
-                )
+                setPassword(e.target.value)
               }
               placeholder="••••••••"
             />
@@ -541,19 +282,16 @@ export default function AdminPage() {
             <textarea
               value={message}
               onChange={(e) =>
-                setMessage(
-                  e.target.value
-                )
+                setMessage(e.target.value)
               }
               placeholder={`Project Name:
-Esndny
+Sha2a 11
 
-Project URL: (Optional)
+Project URL:
 https://www.behance.net/...
 
 YouTube
-https://www.youtube.com/watch?v=...
-https://youtu.be/...
+https://youtube.com/...
 
 Instagram Reels
 https://www.instagram.com/reel/...`}
@@ -566,52 +304,80 @@ https://www.instagram.com/reel/...`}
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => {
-                const file =
-                  e.target.files?.[0];
-
+              onChange={(e) =>
                 setImage(
-                  file
+                  e.target.files?.[0]
                     ? {
                         filename:
-                          file.name,
+                          e.target.files[0].name,
                         base64: null,
                       }
                     : null
-                );
-              }}
+                )
+              }
             />
           </label>
 
           {image?.filename && (
             <p className="file-note">
-              Selected:{" "}
-              {image.filename}
-              {" — "}
+              Selected: {image.filename} —
               اختر الصورة قبل الحفظ.
             </p>
           )}
 
           <button
             className="primary"
-            onClick={
-              handleAddProject
-            }
+            onClick={async () => {
+              const file =
+                document.querySelector(
+                  'input[type="file"]'
+                )?.files?.[0];
+
+              if (!file) {
+                return addProject();
+              }
+
+              const reader = new FileReader();
+
+              reader.onload = () => {
+                const parsedProject =
+                  parseMessage(message);
+
+                // تأكيد إن الاسم موجود قبل تكوين الـ slug
+                if (!parsedProject.title) {
+                  return setNotice(
+                    "اكتب Project Name الأول."
+                  );
+                }
+
+                const slug =
+                  parsedProject.title
+                    .toLowerCase()
+                    .trim()
+                    .replace(/[^a-z0-9]+/g, "-")
+                    .replace(/^-|-$/g, "");
+
+                setImage({
+                  filename: file.name,
+                  base64: reader.result,
+                  slug,
+                });
+
+                addProject();
+              };
+
+              reader.readAsDataURL(file);
+            }}
           >
             ADD PROJECT TO LIST
           </button>
 
         </section>
 
-        {/* PROJECTS LIST */}
-
         <section className="admin-card">
 
           <div className="list-head">
-            <h2>
-              Projects order
-            </h2>
-
+            <h2>Projects order</h2>
             <span>
               {projects.length} projects
             </span>
@@ -619,75 +385,52 @@ https://www.instagram.com/reel/...`}
 
           {projects.length === 0 ? (
             <p className="empty">
-              Paste a project message
-              above and add it to the
-              list.
+              Paste a project message above
+              and add it to the list.
             </p>
           ) : (
-            projects.map(
-              (p, i) => (
-                <div
-                  className="admin-project"
-                  key={p.slug}
-                >
+            projects.map((p, i) => (
+              <div
+                className="admin-project"
+                key={p.slug}
+              >
+                <div>
+                  <b>
+                    {String(i + 1).padStart(2, "0")}
+                    {" — "}
+                    {p.title}
+                  </b>
 
-                  <div>
-                    <b>
-                      {String(i + 1).padStart(
-                        2,
-                        "0"
-                      )}
-                      {" — "}
-                      {p.title}
-                    </b>
-
-                    <small>
-                      {p.youtube?.length ||
-                        0}{" "}
-                      YouTube ·{" "}
-                      {p.instagram
-                        ?.length || 0}{" "}
-                      Instagram
-                      {p.behance
-                        ? " · Behance"
-                        : ""}
-                    </small>
-                  </div>
-
-                  <div className="move">
-
-                    <button
-                      onClick={() =>
-                        move(i, -1)
-                      }
-                      disabled={
-                        i === 0
-                      }
-                    >
-                      ↑
-                    </button>
-
-                    <button
-                      onClick={() =>
-                        move(i, 1)
-                      }
-                      disabled={
-                        i ===
-                        projects.length -
-                          1
-                      }
-                    >
-                      ↓
-                    </button>
-
-                  </div>
-
+                  <small>
+                    {p.youtube.length} YouTube ·{" "}
+                    {p.instagram.length} Instagram
+                  </small>
                 </div>
-              )
-            )
-          )}
 
-          {/* SAVE */}
+                <div className="move">
+                  <button
+                    onClick={() =>
+                      move(i, -1)
+                    }
+                    disabled={i === 0}
+                  >
+                    ↑
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      move(i, 1)
+                    }
+                    disabled={
+                      i === projects.length - 1
+                    }
+                  >
+                    ↓
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
 
           <button
             className="primary save"
