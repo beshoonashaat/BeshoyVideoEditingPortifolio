@@ -1,4 +1,3 @@
-```jsx
 "use client";
 
 import { useMemo, useState } from "react";
@@ -712,4 +711,4 @@ https://www.instagram.com/reel/...`}
     </main>
   );
 }
-```
+
