@@ -446,5 +446,26 @@
         "url": "https://www.instagram.com/p/DC4x9szsQZ6/"
       }
     ]
+  },
+  {
+    "slug": "esndny",
+    "title": "Esndny",
+    "number": "06",
+    "description": "Video editing · Motion design · Social content",
+    "cover": "/project-covers/esndny.jpg",
+    "behance": "",
+    "youtube": [
+      {
+        "id": "2f9a4880-cf69-48a0-9449-9c13ce2a30bb",
+        "title": "2- حنين - هايدي أديب | ألبوم (حنين) | سلسلة ألبومات (أسندني) Vol.5",
+        "url": "https://www.youtube.com/watch?v=L06qa_CQsRU"
+      },
+      {
+        "id": "2b215069-d78d-4260-b665-4d4a708e65b8",
+        "title": "وادي عخور - بيشوي نشأت",
+        "url": "https://youtu.be/NSRTeoj3O0A"
+      }
+    ],
+    "instagram": []
   }
 ]
